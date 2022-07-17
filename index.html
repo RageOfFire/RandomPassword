@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="inputBox">
+        <h2>Random Password Generator</h2>
+        <input type="text" name="" placeholder="Create Password" id="Password" readonly>
+        <i class="fa-solid fa-copy copy" onclick="copyPassword()"></i>
+        <button id="btn" onclick="getPass()">Generator password</button>
+        <div class="alertBox"></div>
+    </div>
+    <script>
+        var alertBox = document.querySelector(".alertBox");
+        function getPass() {
+            var chars = "0123456789abcdefghijklmnopqrstuvwxtzABCDEFGHIJKLMNOPQRSTIVWXYZ!@#$%^&*()_+?><:{}[]";
+            var passwordLength = 16;
+            var password = "";
+
+            for (var i=0; i<passwordLength; i++) {
+                var randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber+1);
+            }
+            document.getElementById("Password").value = password;
+            alertBox.innerHTML = "Copied: <br>" + password;
+        }
+
+        function copyPassword() {
+            var copyPassText = document.getElementById("Password");
+            copyPassText.select();
+            copyPassText.setSelectionRange(0, 9999);
+            document.execCommand("copy");
+            alertBox.classList.toggle("active");
+            setTimeout(() => {
+                alertBox.classList.toggle("active");
+            }, 2000)
+        }
+    </script>
+</body>
+</html>
